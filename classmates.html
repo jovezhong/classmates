@@ -4,7 +4,7 @@
 
 <body>
 	<div class="container">
-		先说一些废话
+		<h3>先说一些废话</h3>
   		{{> survey}}
 	</div>
 </body>
@@ -13,10 +13,29 @@
 	<form class="form-horizontal" method="POST" id="myform">
 		{{#each items}}
 		<div class="control-group">
+			{{#if inputIs "legend"}}
+			<legend>{{label}}</legend>
+			{{/if}}
+			{{#if inputIs "text"}}
 			<label class="control-label" for="{{key}}">{{label}}</label>
 			<div class="controls">
-				<input type="text" id="{{key}}" name="{{key}}" value="{{value}}" placeholder="{{label}}">
+				<input type="text" id="{{key}}" name="{{key}}" placeholder="{{value}}">
 			</div>
+			{{/if}}
+			{{#if inputIs "radio"}}
+			<label class="control-label" for="{{key}}">{{label}}</label>
+			<div class="controls">
+				{{#each options}}
+				<input type="radio" name="{{key}}" value="{{option}}"> {{option}}
+				{{/each}}
+			</div>
+			{{/if}}
+			{{#if inputIs "textarea"}}
+			<label class="control-label" for="{{key}}">{{label}}</label>
+			<div class="controls">
+				<textarea rows="3" id="{{key}}" name="{{key}}" placeholder="{{value}}"></textarea>
+			</div>
+			{{/if}}
 		</div>
   		{{/each}}
 	  <button class="btn btn-large btn-primary" type="submit">填完了</button>
