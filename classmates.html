@@ -22,6 +22,12 @@
 				<input type="text" id="{{key}}" name="{{key}}" placeholder="{{value}}">
 			</div>
 			{{/if}}
+			{{#if inputIs "password"}}
+			<label class="control-label" for="{{key}}">{{label}}</label>
+			<div class="controls">
+				<input type="password" id="{{key}}" name="{{key}}" placeholder="{{value}}">
+			</div>
+			{{/if}}
 			{{#if inputIs "radio"}}
 			<label class="control-label" for="{{key}}">{{label}}</label>
 			<div class="controls">

@@ -2,6 +2,7 @@ if (Meteor.isClient) {
   Template.survey.items = function () {
     var list=[
       {label:'基本信息',legend:true},
+      {label:'防外人骚扰，请输入口令',key:'passcode',password:true},
       {label:'姓名'},
       {label:'性别',options:['男','女']},
       {label:'学号',value:'9924???'},
@@ -80,6 +81,8 @@ if (Meteor.isClient) {
       myType="radio"
     if(this.hasOwnProperty('legend')&&this.legend)
       myType="legend"   
+    if(this.hasOwnProperty('password')&&this.password)
+      myType="password"     
     if(this.hasOwnProperty('textarea')&&this.textarea)
       myType="textarea"   
     return myType===inputType
@@ -89,7 +92,12 @@ if (Meteor.isClient) {
     $.each($('#myform').serializeArray(),function(){
       data[this.name]=this.value;
     });
-    Meteor.call('saveData',data);
+    if(data.passcode==="mypwd"){
+      delete data.passcode;
+      Meteor.call('saveData',data);
+    }else{
+      alert("口令不对");
+    }
   }
 
   Template.survey.events({
