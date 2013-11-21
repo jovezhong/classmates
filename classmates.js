@@ -95,6 +95,11 @@ if (Meteor.isClient) {
     if(rightPasscode(data.passcode)){
       delete data.passcode;
       Meteor.call('saveData',data);
+      alert("收到！点击确认，查看当前所有数据");
+      Meteor.call('getData',function(err,result){
+        $('body').html("<pre>"+result+"</pre>");  
+      });
+      
     }else{
       alert("口令不对");
     }
@@ -118,12 +123,17 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
     fs = Npm.require('fs');
+    dataFile='/Users/jzhong/Dev/git_projects/data.txt'
   });
   Meteor.methods({
     saveData: function(data){
       data.time=new Date();
       var str=JSON.stringify(data)+"\n";
-      fs.appendFileSync('/Users/jzhong/Dev/git_projects/classmates/private/data.txt',str,'utf8');
+      fs.appendFileSync(dataFile,str,'utf8');
+    },
+    getData: function(){
+      return fs.readFileSync(dataFile,'utf8')
+      //return Assets.getText('data.txt');
     }
   });
 }
