@@ -92,16 +92,23 @@ if (Meteor.isClient) {
     $.each($('#myform').serializeArray(),function(){
       data[this.name]=this.value;
     });
-    if(data.passcode==="mypwd"){
+    if(rightPasscode(data.passcode)){
       delete data.passcode;
       Meteor.call('saveData',data);
     }else{
       alert("口令不对");
     }
   }
+  function rightPasscode(code){
+    return code==="mypwd"
+  }
 
   Template.survey.events({
-    'submit' : function () {
+    'keyup .passcode':function(event){
+      var str=rightPasscode(event.currentTarget.value)?"OK":''
+      $('.passcodeOK').text(str);
+    },
+    'submit' : function (event) {
       submitForm();
       event.preventDefault();
     }
