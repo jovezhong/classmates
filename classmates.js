@@ -15,9 +15,6 @@ if (Meteor.isClient) {
       {label:'是否参加12月21号的聚会',key:'聚会',options:['来','来不了','还不确定']},
       {label:'是否带家属',options:['是','否']},
       {label:'是否带小孩',options:['是','否']},
-      {label:'是否上午来帮忙',options:['是','否']},
-      {label:'是否想参观江湾校区',key:'江湾',options:['是','否']},
-      {label:'是否想参观张江校区',key:'张江',options:['是','否']},
 
       {label:'联络方式',legend:true},
       {label:'常驻国家',options:['中国','美国','日本','英国','澳大利亚','其他']},
@@ -54,6 +51,10 @@ if (Meteor.isClient) {
       {label:'大学期间最郁闷的事',textarea:true},
       {label:'大学期间最后悔的事',textarea:true},
       {label:'大学期间最爽的事',textarea:true},
+
+      {label:'其他',legend:true},
+      {label:'对本次聚会的建议和期望',textarea:true},
+      {label:'顺便灌个水吧',textarea:true},
     ];
     for(var i in list){
       if(list[i].hasOwnProperty('key')==false)
