@@ -1,11 +1,15 @@
 if (Meteor.isClient) {
   Template.survey.items = function () {
     var list=[
-      {label:'基本信息',legend:true},
-      {label:'防外人骚扰，请输入口令',key:'passcode',password:true},
-      {label:'姓名'},
+      {label:'必填项',legend:true},
+      {label:'防外人骚扰，请输入口令',key:'passcode',password:true,required:true},
+      {label:'学号',value:'9924???',required:true},
+      {label:'姓名',required:true},
       {label:'性别',options:['男','女']},
-      {label:'学号',value:'9924???'},
+      {label:'手机',required:true},
+      {label:'邮箱',required:true},
+      {label:'工作单位',required:true},
+      {label:'职位',required:true},
 
       {label:'聚会统计',legend:true},
       {label:'是否参加12月21号的聚会',key:'聚会',options:['来','来不了','还不确定']},
@@ -20,8 +24,6 @@ if (Meteor.isClient) {
       {label:'常驻国家_其他'},
       {label:'常驻城市',options:['上海','北京','香港','加州','西雅图','东京','悉尼','其他']},
       {label:'常驻城市_其他'},
-      {label:'手机'},
-      {label:'Email'},
       {label:'QQ'},
       {label:'微信号'},
       {label:'weibo'},
@@ -32,16 +34,14 @@ if (Meteor.isClient) {
       {label:'Google ID',key:'GoogleID'},
 
       {label:'工作情况',legend:true},
-      {label:'当前单位'},
-      {label:'职位'},
       {label:'所处行业'},
       {label:'还在做IT？',key:'IT',options:['是','否']},
       {label:'如果还在IT圈,主要角色',key:'IT_Role',options:['开发','测试','运维','产品设计','售前','技术支持','管理','其他']},
-      {label:'偏管理还是偏IC',key:'管理',options:['Manager','Individual Contributor']},
+      {label:'做领导了?',key:'管理',options:['做管理','不做管理']},
 
       {label:'家庭情况',legend:true},
       {label:'当前婚姻状况',options:['结婚','单身','发展中']},
-      {label:'有离过婚么',options:['是','否']},
+      //{label:'有离过婚么',options:['是','否']},
       {label:'有小孩了么',options:['有','无']},
       {label:'几个男孩',options:['0','1','2']},
       {label:'几个女孩',options:['0','1','2']},
@@ -59,7 +59,10 @@ if (Meteor.isClient) {
       if(list[i].hasOwnProperty('key')==false)
         list[i].key=list[i].label;
       if(list[i].hasOwnProperty('value')==false)
-        list[i].value='';      
+        list[i].value='';  
+      list[i].requiredStr=''; 
+      if(list[i].hasOwnProperty('required')==true&&list[i].required===true)
+        list[i].requiredStr='required';       
       if(list[i].hasOwnProperty('options')){
         var _options=list[i].options
         var newOptions=[];
@@ -88,24 +91,25 @@ if (Meteor.isClient) {
     return myType===inputType
   };
   function submitForm(){
+    $('#myform').validate();
     data={};
     $.each($('#myform').serializeArray(),function(){
       data[this.name]=this.value;
     });
-    if(rightPasscode(data.passcode)){
+    //two checks: one for passcode, the other for required fields
+    if(rightPasscode(data.passcode)===false){
+      alert("口令不对");
+    }else{
       delete data.passcode;
       Meteor.call('saveData',data);
       alert("收到！点击确认，查看当前所有数据");
       Meteor.call('getData',function(err,result){
         $('body').html("<pre>"+result+"</pre>");  
-      });
-      
-    }else{
-      alert("口令不对");
+      }); 
     }
   }
   function rightPasscode(code){
-    return code==="mypwd"
+    return code==="mypwd"//TODO change this passcode in your deployment
   }
 
   Template.survey.events({

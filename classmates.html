@@ -4,7 +4,23 @@
 
 <body>
 	<div class="container">
-		<h3>先说一些废话</h3>
+		<h3>9924 毕业十年</h3>
+		<pre>你望着自己越来越少的头发、或越来越丰腴的腰肢，才发现时间咻～～～～～～～的一下，居然十年过去了。
+
+十年前，你通宵达旦灌水、玩游戏，
+十年后，你只能望着电脑哄着娃；
+十年前，你奋发图强写程序，为了梦想，
+十年后，你依然奋发图强写程序，为了养家；
+十年前，你觉得没有比“百人斩”更恐怖的关卡，
+十年后，你发现上司才是GAME是否OVER的终极BOSS。
+
+十年后的你，身在何方？
+十年后的你，是否仍在追逐你的梦想？
+十年后的你，是否寻找到那份真挚的感情？
+十年后的你，是否已经承担起家庭的重任？
+十年后的你，是否还保留着当初“青葱”的小模样儿？
+
+让我们相约12.21，共同见证十年的成长。</pre>
   		{{> survey}}
 	</div>
 	<a href="https://github.com/jovezhong/classmates"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
@@ -20,13 +36,13 @@
 			{{#if inputIs "text"}}
 			<label class="control-label" for="{{key}}">{{label}}</label>
 			<div class="controls">
-				<input type="text" id="{{key}}" name="{{key}}" placeholder="{{value}}">
+				<input type="text" id="{{key}}" name="{{key}}" placeholder="{{value}}" {{requiredStr}}>
 			</div>
 			{{/if}}
 			{{#if inputIs "password"}}
 			<label class="control-label" for="{{key}}">{{label}}</label>
 			<div class="controls">
-				<input type="password" class="passcode" id="{{key}}" name="{{key}}" placeholder="{{value}}"> <span class="passcodeOK"></span>
+				<input type="password" class="passcode" id="{{key}}" name="{{key}}" placeholder="{{value}}" {{requiredStr}}> <span class="passcodeOK"></span>
 			</div>
 			{{/if}}
 			{{#if inputIs "radio"}}
