@@ -103,10 +103,8 @@ if (Meteor.isClient) {
     }else{
       delete data.passcode;
       Meteor.call('saveData',data);
-      alert("收到！点击确认，查看当前所有数据");
-      Meteor.call('getData',function(err,result){
-        $('body').html("<pre>"+result+"</pre>");  
-      }); 
+      alert("信息提交成功。此系统制作仓促，请勿再次填写。");
+      $('body').html("<pre>让我们相约12.21，共同见证十年的成长</pre>");
     }
   }
   function rightPasscode(code){
