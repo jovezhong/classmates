@@ -1,0 +1,269 @@
+<dashboard>
+  <label>十年聚会</label>
+  <description>1999-2003-2013</description>
+  <row>
+    <chart>
+      <title>信息收集</title>
+      <searchString>index=9924 |timechart count</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="charting.axisTitleX.visibility">collapsed</option>
+      <option name="charting.axisTitleY.visibility">visible</option>
+      <option name="charting.axisX.scale">linear</option>
+      <option name="charting.axisY.scale">linear</option>
+      <option name="charting.chart">column</option>
+      <option name="charting.chart.nullValueMode">gaps</option>
+      <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+      <option name="charting.chart.stackMode">default</option>
+      <option name="charting.chart.style">shiny</option>
+      <option name="charting.drilldown">all</option>
+      <option name="charting.layout.splitSeries">0</option>
+      <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+      <option name="charting.legend.placement">none</option>
+      <option name="charting.axisLabelsY.majorUnit">1</option>
+      <option name="charting.axisTitleY.text">填表人数</option>
+    </chart>
+  </row>
+  <row>
+    <single>
+      <searchString>index=9924 "聚会"="来"|stats count</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="afterLabel">人</option>
+      <option name="underLabel">参加聚会</option>
+    </single>
+    <single>
+      <searchString>index=9924 "聚会"!="来"|stats count</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="afterLabel">人</option>
+      <option name="underLabel">不参加聚会</option>
+    </single>
+    <single>
+      <searchString>index=9924 当前婚姻状况!=结婚 |stats count</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="afterLabel">人</option>
+      <option name="underLabel">还没结婚</option>
+    </single>
+    <single>
+      <searchString>index=9924 有小孩了么=无 |stats count</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="afterLabel">人</option>
+      <option name="underLabel">还没小孩</option>
+    </single>
+    <single>
+      <searchString>index=9924 买房了么=否 |stats count</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="afterLabel">人</option>
+      <option name="underLabel">还没买房</option>
+    </single>
+    <single>
+      <searchString>index=9924 买车了么=否 |stats count</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="afterLabel">人</option>
+      <option name="underLabel">还没买车</option>
+    </single>
+    <single>
+      <searchString>index=9924|stats sum(几个男孩) as boy,sum(几个女孩) as girl|eval 男女比=boy.":".girl|fields 男女比</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="underLabel">男孩 vs 女孩</option>
+    </single>
+  </row>
+  <row>
+    <table>
+      <title>参加聚会</title>
+      <searchString>index=9924 "聚会"="来"|table 学号,姓名,性别,手机,邮箱,工作单位,所处行业,职位,常驻城市|sort 学号</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">100</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>缺席</title>
+      <searchString>index=9924 "聚会"!="来"|table 学号,姓名,性别,手机,邮箱,工作单位,所处行业,职位,常驻城市|sort 学号</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">100</option>
+    </table>
+  </row>
+  <row>
+    <chart>
+      <title>性别</title>
+      <searchString>index=9924|chart count by 性别</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="charting.axisTitleX.visibility">visible</option>
+      <option name="charting.axisTitleY.visibility">visible</option>
+      <option name="charting.axisX.scale">linear</option>
+      <option name="charting.axisY.scale">linear</option>
+      <option name="charting.chart">pie</option>
+      <option name="charting.chart.nullValueMode">gaps</option>
+      <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+      <option name="charting.chart.stackMode">default</option>
+      <option name="charting.chart.style">shiny</option>
+      <option name="charting.drilldown">all</option>
+      <option name="charting.layout.splitSeries">0</option>
+      <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+      <option name="charting.legend.placement">right</option>
+    </chart>
+    <chart>
+      <title>做领导了?</title>
+      <searchString>index=9924|chart count by 管理, 性别</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="charting.axisTitleX.visibility">collapsed</option>
+      <option name="charting.axisTitleY.visibility">visible</option>
+      <option name="charting.axisX.scale">linear</option>
+      <option name="charting.axisY.scale">linear</option>
+      <option name="charting.chart">column</option>
+      <option name="charting.chart.nullValueMode">gaps</option>
+      <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+      <option name="charting.chart.stackMode">stacked</option>
+      <option name="charting.chart.style">shiny</option>
+      <option name="charting.drilldown">all</option>
+      <option name="charting.layout.splitSeries">0</option>
+      <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+      <option name="charting.legend.placement">top</option>
+    </chart>
+    <chart>
+      <title>在哪座城市?</title>
+      <searchString>index=9924|chart count by 常驻城市, 性别</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="charting.axisTitleX.visibility">collapsed</option>
+      <option name="charting.axisTitleY.visibility">visible</option>
+      <option name="charting.axisX.scale">linear</option>
+      <option name="charting.axisY.scale">linear</option>
+      <option name="charting.chart">column</option>
+      <option name="charting.chart.nullValueMode">gaps</option>
+      <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+      <option name="charting.chart.stackMode">stacked</option>
+      <option name="charting.chart.style">shiny</option>
+      <option name="charting.drilldown">all</option>
+      <option name="charting.layout.splitSeries">0</option>
+      <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+      <option name="charting.legend.placement">top</option>
+    </chart>
+    <chart>
+      <title>在做本行么?</title>
+      <searchString>index=9924|chart count by IT, 性别</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="charting.axisTitleX.visibility">collapsed</option>
+      <option name="charting.axisTitleY.visibility">visible</option>
+      <option name="charting.axisX.scale">linear</option>
+      <option name="charting.axisY.scale">linear</option>
+      <option name="charting.chart">column</option>
+      <option name="charting.chart.nullValueMode">gaps</option>
+      <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+      <option name="charting.chart.stackMode">stacked</option>
+      <option name="charting.chart.style">shiny</option>
+      <option name="charting.drilldown">all</option>
+      <option name="charting.layout.splitSeries">0</option>
+      <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+      <option name="charting.legend.placement">top</option>
+    </chart>
+    <chart>
+      <title>是哪种IT人才?</title>
+      <searchString>index=9924|chart count by IT_Role</searchString>
+      <earliestTime>0</earliestTime>
+      <option name="charting.axisTitleX.visibility">visible</option>
+      <option name="charting.axisTitleY.visibility">visible</option>
+      <option name="charting.axisX.scale">linear</option>
+      <option name="charting.axisY.scale">linear</option>
+      <option name="charting.chart">pie</option>
+      <option name="charting.chart.nullValueMode">gaps</option>
+      <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+      <option name="charting.chart.stackMode">default</option>
+      <option name="charting.chart.style">shiny</option>
+      <option name="charting.drilldown">all</option>
+      <option name="charting.layout.splitSeries">0</option>
+      <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+      <option name="charting.legend.placement">right</option>
+    </chart>
+  </row>
+  <row>
+    <table>
+      <title>对聚会有什么想法，你就说吗?</title>
+      <searchString>index=9924| eval n=len('对本次聚会的建议和期望')| where n&gt;0| table 对本次聚会的建议和期望</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">100</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>尚能灌水否？</title>
+      <searchString>index=9924| eval n=len('顺便灌个水吧')| where n&gt;0| table 顺便灌个水吧</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">100</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>大学期间最难忘的事？</title>
+      <searchString>index=9924| eval n=len('大学期间最难忘的事')| where n&gt;0| table 大学期间最难忘的事</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">100</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>大学期间最郁闷的事？</title>
+      <searchString>index=9924| eval n=len('大学期间最郁闷的事')| where n&gt;0| table 大学期间最郁闷的事</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">100</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>大学期间最后悔的事？</title>
+      <searchString>index=9924| eval n=len('大学期间最后悔的事')| where n&gt;0| table 大学期间最后悔的事</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">100</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>大学期间最爽的事？</title>
+      <searchString>index=9924| eval n=len('大学期间最爽的事')| where n&gt;0| table 大学期间最爽的事, 姓名</searchString>
+      <earliestTime>0</earliestTime>
+      <latestTime>$latest$</latestTime>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">100</option>
+    </table>
+  </row>
+</dashboard>
